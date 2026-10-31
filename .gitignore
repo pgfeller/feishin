@@ -8,3 +8,4 @@ release
 .idea
 .scratch
 tsconfig.*.tsbuildinfo
+/.specify/extensions/companion/scripts/__pycache__/

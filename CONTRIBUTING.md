@@ -21,6 +21,14 @@ Useful development commands include:
 - `pnpm run package:dev` - Quick unpacked production build
 - `pnpm run build:remote` - Manually rebuild the remote app if you make changes
 
+### VS Code Dev Container
+
+The repository includes an isolated development container. It requires Docker and the VS Code Dev Containers extension. Open the repository and run **Dev Containers: Reopen in Container** from the Command Palette. On first creation, it installs dependencies from the lockfile.
+
+The container pins Node.js `23.11.0` and pnpm `11.5.2`. Project dependencies and pnpm's package store each live in workspace-unique Docker-managed volumes rather than the host checkout. The package store is configured inside the container on first creation. Run `pnpm run typecheck`, `pnpm run lint`, `NODE_OPTIONS=--max-old-space-size=4096 pnpm run build:web`, or `pnpm run dev:remote` inside the container. The production web build needs the larger Node.js heap. The remote development server uses forwarded port `5173`.
+
+The initial container does not provide desktop display/audio forwarding, MPV, or MPRIS integration. Use the host development setup to run and test those desktop-specific workflows.
+
 ## AI Disclosure
 
 AI-generated code **is accepted** under the following conditions:

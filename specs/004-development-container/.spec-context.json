@@ -1,0 +1,240 @@
+{
+  "workflow": "companion",
+  "specName": "Isolated Development Container",
+  "branch": "development",
+  "currentStep": "implement",
+  "status": "implemented",
+  "history": [
+    {
+      "step": "specify",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-30T11:21:34.000Z"
+    },
+    {
+      "step": "specify",
+      "substep": null,
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-30T11:26:53.934Z"
+    },
+    {
+      "step": "plan",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-30T11:27:10.557Z"
+    },
+    {
+      "step": "plan",
+      "substep": null,
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-30T11:27:24.810Z"
+    },
+    {
+      "step": "tasks",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-30T11:27:39.321Z"
+    },
+    {
+      "step": "tasks",
+      "substep": null,
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-10-30T11:27:53.949Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-10-30T11:28:16.706Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T001",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-30T11:29:14.578Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T002",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-30T11:29:29.206Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T003",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-30T11:29:47.330Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T004",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-30T12:02:22.565Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-30T12:02:22.577Z"
+    }
+  ],
+  "telemetryInstanceId": "5025a82c-f418-463e-82d1-18a16f8410d3",
+  "last_action": "living specs evaluated — skipped (not configured)",
+  "size": "simple",
+  "classification": {
+    "projectedFiles": 3,
+    "projectedTasks": 4,
+    "scopeSignal": "none",
+    "verdict": "simple"
+  },
+  "expectations": [
+    "Electron GUI, host audio, MPV and MPRIS remain out of scope for the initial container",
+    "The host runtime and VS Code Dev Containers extension remain user-provided prerequisites"
+  ],
+  "context": [
+    "CONTRIBUTING.md: tested Node.js and pnpm versions and development commands",
+    "package.json: pinned package manager and project quality/build scripts",
+    "docs/agents/architecture.md: web and remote build surfaces",
+    ".gitignore: node_modules exclusion"
+  ],
+  "coverage": {
+    "FR-001": {
+      "title": "The development container MUST provide Node.js 23.11.0 and pnpm 11.5.2, matching the versions documented for Feishin development."
+    },
+    "FR-002": {
+      "title": "The development container MUST install dependencies using the committed pnpm lockfile without modifying it."
+    },
+    "FR-003": {
+      "title": "The development container MUST keep node_modules in a container-managed volume, separate from the host workspace."
+    },
+    "FR-004": {
+      "title": "Contributors MUST be able to run the project typecheck, lint, web build, and remote development workflows from the container."
+    },
+    "FR-005": {
+      "title": "The initial development container MUST NOT claim to provide Electron GUI, host audio, MPV, MPRIS, or other desktop host integration."
+    },
+    "FR-006": {
+      "title": "Setup instructions MUST identify the required host container runtime and explain how to open the repository in the container."
+    }
+  },
+  "intent": "Provide an isolated, reproducible Feishin development toolchain without changing host tools or other workspaces.",
+  "decisions": [
+    {
+      "decision": "Use the official Node Dev Container feature to pin Node.js and pnpm.",
+      "why": "It supplies the project-tested versions inside the container and avoids changing host tools.",
+      "rejected": "Use host Corepack or a system-wide pnpm installation."
+    },
+    {
+      "decision": "Store node_modules in a named container volume and omit desktop GUI/audio integration from the first version.",
+      "why": "This keeps dependencies away from the host workspace and avoids platform-specific Electron integration scope.",
+      "rejected": "Bind-mount dependencies onto the host or claim full desktop parity."
+    }
+  ],
+  "step_summaries": {
+    "specify": {
+      "summary": "Specified an isolated Node/pnpm Dev Container for build and browser workflows.",
+      "key_finding": "The repository documents Node 23.11.0 and pnpm 11.5.2 as its tested stack."
+    }
+  },
+  "approach": "Use the official Dev Container Node feature for the repo-pinned Node.js and pnpm versions, isolate node_modules in a named container volume, install from the frozen lockfile, and document supported workflows and desktop limitations.",
+  "currentTask": "T004",
+  "task_summaries": {
+    "T001": {
+      "status": "DONE",
+      "did": "Added the pinned Dev Container and verified its JSON syntax.",
+      "files": [
+        ".devcontainer/devcontainer.json"
+      ]
+    },
+    "T002": {
+      "status": "DONE",
+      "did": "Documented container startup, supported workflows, and desktop-specific exclusions.",
+      "files": [
+        "CONTRIBUTING.md"
+      ]
+    },
+    "T003": {
+      "status": "DONE",
+      "did": "Added the development-container spec to the living-spec index.",
+      "files": [
+        "specs/README.md"
+      ]
+    },
+    "T004": {
+      "status": "DONE",
+      "did": "Validated Dev Container config, pinned tools, isolated volumes, install, lint/typecheck, web and remote builds, and remote HTTP response.",
+      "files": [
+        ".devcontainer/devcontainer.json",
+        ".devcontainer/devcontainer-lock.json",
+        "CONTRIBUTING.md",
+        "specs/004-development-container/development-container.spec.md"
+      ]
+    }
+  },
+  "verified": [
+    {
+      "what": "Container configuration",
+      "command": "npm exec --yes --package=@devcontainers/cli -- devcontainer read-configuration --workspace-folder . >/dev/null",
+      "source": "derived",
+      "exitCode": 0,
+      "durationSeconds": 1.4,
+      "result": "[2026-10-30T12:02:41.417Z] @devcontainers/cli 0.90.0. Node.js v24.22.1. linux 7.0.0-38-generic x64."
+    },
+    {
+      "what": "Pinned toolchain, isolated volumes, frozen install",
+      "command": "npm exec --yes --package=@devcontainers/cli -- devcontainer exec --workspace-folder . sh -lc 'test \"$(node --version)\" = v23.11.0 && test \"$(pnpm --version)\" = 11.5.2 && test \"$(pnpm store path)\" = /pnpm/store/v11 && test -w node_modules && test -w /pnpm/store && pnpm install --frozen-lockfile >/dev/null && git diff --quiet -- pnpm-lock.yaml'",
+      "source": "derived",
+      "exitCode": 0,
+      "durationSeconds": 4.4,
+      "result": "no output"
+    },
+    {
+      "what": "Typecheck and lint",
+      "command": "npm exec --yes --package=@devcontainers/cli -- devcontainer exec --workspace-folder . pnpm run lint",
+      "source": "derived",
+      "exitCode": 0,
+      "durationSeconds": 76.3,
+      "result": "$ tsc --noEmit -p tsconfig.web.json --composite false · $ eslint --max-warnings=0 --cache . · $ stylelint --max-warnings=0 'src/**/*.{css,scss}'"
+    },
+    {
+      "what": "Web production build with 4 GB heap",
+      "command": "npm exec --yes --package=@devcontainers/cli -- devcontainer exec --workspace-folder . sh -lc 'NODE_OPTIONS=--max-old-space-size=4096 pnpm run build:web >/dev/null 2>&1'",
+      "source": "derived",
+      "exitCode": 0,
+      "durationSeconds": 122.4,
+      "result": "no output"
+    },
+    {
+      "what": "Remote app build",
+      "command": "npm exec --yes --package=@devcontainers/cli -- devcontainer exec --workspace-folder . pnpm run build:remote >/dev/null 2>&1",
+      "source": "derived",
+      "exitCode": 0,
+      "durationSeconds": 35.8,
+      "result": "no output"
+    },
+    {
+      "what": "Remote dev HTTP on port 5173",
+      "command": "npm exec --yes --package=@devcontainers/cli -- devcontainer exec --workspace-folder . node -e \"fetch('http://127.0.0.1:5173').then(response => { process.exit(response.ok ? 0 : 1); }).catch(() => process.exit(1));\"",
+      "source": "derived",
+      "exitCode": 0,
+      "durationSeconds": 3.1,
+      "result": "no output"
+    }
+  ]
+}

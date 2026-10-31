@@ -1,0 +1,30 @@
+{
+  "name": "Feishin Development",
+  "image": "mcr.microsoft.com/devcontainers/base:bookworm",
+  "features": {
+    "ghcr.io/devcontainers/features/node:2": {
+      "version": "23.11.0",
+      "pnpmVersion": "11.5.2",
+      "nodeGypDependencies": true
+    }
+  },
+  "containerEnv": {
+    "PNPM_CONFIG_STORE_DIR": "/pnpm/store"
+  },
+  "postCreateCommand": "sudo chown -R vscode:vscode node_modules /pnpm/store && pnpm install --frozen-lockfile",
+  "mounts": [
+    "source=${devcontainerId}-node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume",
+    "source=${devcontainerId}-pnpm-store,target=/pnpm/store,type=volume"
+  ],
+  "forwardPorts": [
+    5173
+  ],
+  "portsAttributes": {
+    "5173": {
+      "label": "Feishin remote development server",
+      "onAutoForward": "openBrowser"
+    }
+  },
+  "remoteUser": "vscode",
+  "shutdownAction": "stopContainer"
+}
